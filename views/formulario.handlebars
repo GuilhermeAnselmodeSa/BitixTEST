@@ -1,0 +1,102 @@
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div class="toast align-items-center text-bg-success border-0" id="liveToast" role="alert" aria-live="assertive"
+    aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body">
+        Beneficiãrios criados com sucesso
+      </div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"
+        aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="mb-3">
+    <label class="form-label" for="nomeBeneficiario">Nome de Beneficiario:</label>
+    <input class="form-control" type="text" name="nomeBeneficiario" id="nomeBeneficiario">
+  </div>
+  <div class="mb-3">
+    <label class="form-label" for="idadeBeneficiario">Idade dos Beneficiario:</label>
+    <input class="form-control" type="number" name="idadeBeneficiario" id="idadeBeneficiario">
+  </div>
+
+
+  <div class="mb-3">
+    <b>Beneficiários que serão cadastrados:</b>
+    <table class="table mt-3 table-striped  table-bordered table-hover" id="listagemRegistros">
+      <thead>
+        <th scope="col">Nome</th>
+        <th scope="col">Idade</th>
+      </thead>
+      <tbody class="table-group-divider"></tbody>
+    </table>
+  </div>
+
+  <div>
+    <button class="btn btn-warning" onclick="addBeneficiario()" id="btnAdicionarDependentes">
+      📝Adicionar Dependentes
+    </button>
+  </div>
+</div>
+
+<hr />
+
+<div class="row">
+  <div class="mb-3">
+    <label class="form-label" for="quantidadeBeneficiarios">Quantidade de Beneficiarios:</label>
+    <input class="form-control" type="number" name="quantidadeBeneficiarios" id="quantidadeBeneficiarios">
+  </div>
+
+  <div class="mb-3">
+    <label class="form-label" for="registroPlano">Codigo Plano:</label>
+    <input class="form-control" type="number" name="registroPlano" id="registroPlano">
+  </div>
+
+  <div>
+    <button class="btn btn-primary" type="button" onclick="cadastrarPlano()">Cadastrar Plano</button>
+  </div>
+</div>
+
+<script>
+  const beneficiarios = [];
+
+  function addBeneficiario() {
+    const tabelaListagem = document.querySelector('#listagemRegistros > tbody')
+    const nomeBeneficiarioElement = document.getElementById('nomeBeneficiario');
+    const idadeBeneficiarioElement = document.getElementById('idadeBeneficiario');
+
+    beneficiarios.push({ nomeBeneficiario: nomeBeneficiarioElement.value, idadeBeneficiario: idadeBeneficiarioElement.value });
+
+    nomeBeneficiarioElement.value = '';
+    idadeBeneficiarioElement.value = '';
+
+    tabelaListagem.innerHTML = beneficiarios.map(b => `
+      <tr>
+        <td>${b.nomeBeneficiario}</td>
+        <td>${b.idadeBeneficiario}</td>
+      </tr>
+    `).join('\n');
+
+    nomeBeneficiarioElement.focus();
+  }
+
+  async function cadastrarPlano() {
+    const registroPlano = document.getElementById('registroPlano').value;
+    const quantidadeBeneficiarios = document.getElementById('quantidadeBeneficiarios').value;
+    const toastElement = document.getElementById('liveToast');
+
+    await fetch('/add', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ beneficiarios, registroPlano, quantidadeBeneficiarios })
+    });
+
+
+    const toast = new bootstrap.Toast(toastElement)
+    toast.show()
+  }
+
+</script>

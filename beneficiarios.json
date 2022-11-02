@@ -1,0 +1,44 @@
+[
+	{
+		"registroPlano": "1",
+		"quantidadeBeneficiarios": "2",
+		"nomeBeneficiarios": [
+			"Marcos",
+			"Guilherme"
+		],
+		"idadeBeneficiarios": [
+			"18",
+			"0"
+		]
+	},
+	{
+		"registroPlano": "2",
+		"quantidadeBeneficiarios": "1",
+		"nomeBeneficiarios": [
+			"marcos"
+		],
+		"idadeBeneficiarios": [
+			"12"
+		]
+	},
+	{
+		"registroPlano": "1",
+		"quantidadeBeneficiarios": "1",
+		"nomeBeneficiarios": [
+			"marcos"
+		],
+		"idadeBeneficiarios": [
+			"16"
+		]
+	},
+	{
+		"registroPlano": "3",
+		"quantidadeBeneficiarios": "1",
+		"nomeBeneficiarios": [
+			"marcos"
+		],
+		"idadeBeneficiarios": [
+			"12"
+		]
+	}
+]
